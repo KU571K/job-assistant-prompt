@@ -26,7 +26,7 @@ class DynamicCareerAssistant:
             "stage": "demographic",
             "question_type": "gender",
             "question": "Укажите ваш пол",
-            "options": ["Мужской", "Женский", "Предпочитаю не указывать"],
+            "options": ["Мужской", "Женский"],
             "question_number": 1,
             "total_questions": 14 
         }
@@ -151,8 +151,8 @@ class DynamicCareerAssistant:
         
         return sorted_types[0][0]  # Самый высокий балл
     
+    # Подсчет баллов
     async def _process_holland(self, session: TestSession, answer: Dict) -> Dict:
-        """Обработка ответа на вопрос Холланда"""
         question_type = answer.get("question_type")
         user_answer = answer.get("answer")
         
@@ -173,8 +173,8 @@ class DynamicCareerAssistant:
         # Генерируем следующий вопрос
         return await self._generate_holland_question(session)
     
+    # Формирование результатов
     async def _generate_results(self, session: TestSession) -> Dict:
-        """Генерация финальных результатов с профессиями"""
         # Определяем доминирующие типы
         sorted_scores = sorted(
             session.holland_scores.items(),
